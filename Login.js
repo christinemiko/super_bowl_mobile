@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,13 +13,36 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'OpenSans-Bold',
     color: 'white',
-    fontSize: 50,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   text: {
     fontFamily: 'OpenSans-Regular',
     color: 'white',
-    fontSize: 16,
+    fontSize: 20,
+    textAlign:'left',
+  },
+  textInput: {
+    fontFamily: 'OpenSans-Regular',
+    color: 'black',
+    fontSize: 20,
+    backgroundColor: 'white', //  pour définir le fond blanc
+    borderRadius: 8, // pour ajouter des coins arrondis
+    paddingHorizontal: 10, // pour ajouter un espacement horizontal
+    marginBottom: 10, //  pour ajouter un espacement en bas
+    width: 300, // Définir la largeur souhaitée
+    height: 40, // Définir la hauteur souhaitée
+  },
+  button: {
+    width: 200, // Définir la largeur souhaitée
+    height: 50, // Définir la hauteur souhaitée
+    borderRadius: 10, // Définir le rayon des coins pour obtenir des bords arrondis
+  },
+  text2: {
+    fontFamily: 'OpenSans-Regular',
+    color: 'white',
+    fontSize: 10,
+    
   },
 });
 
@@ -58,21 +81,32 @@ const LoginScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
-      <TextInput
-        placeholder="Email"
+       <Image source={require('./assets/logo4.png')} style={styles.logo} />
+      <Text style={[styles.title, { marginTop: 50 }]}>Connexion</Text>
+      <Text style={[styles.text, { marginTop: 20 }]}>Email</Text>
+      <TextInput style={[styles.textInput, { marginTop: 10 }]}
+        placeholder="Entrez votre email"
         value={email}
         onChangeText={setEmail}
-        style={styles.text}
+      
       />
+      <Text style={[styles.text, { marginTop: 20 }]}>Mot de passe</Text>
       <TextInput
-        placeholder="Mot de passe"
+        style={[styles.textInput, { marginTop: 10, marginBottom: 50 }]}
+        placeholder="Entrez votre Mot de passe"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        style={styles.text}
+      
       />
-      <Button title="Se Connecter" onPress={handleSubmit} />
+        <Button
+        title="Se Connecter"
+        onPress={handleSubmit}
+        color="#2563EB"
+        buttonStyle={styles.button}
+        />
+
+       <Text style={[styles.text2, { marginTop: 20 }]}>Informations légales © Tous Droits réservés</Text>
      
     </View>
   );
