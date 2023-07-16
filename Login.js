@@ -53,7 +53,7 @@ const LoginScreen = () => {
   // Obtenez la fonction de navigation
   const navigation = useNavigation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async() => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/login_check', {
         method: 'POST',

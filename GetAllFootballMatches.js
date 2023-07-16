@@ -42,6 +42,7 @@ const GetAllFootballMatches = () => {
              <Text>{item.hourStart}</Text>  // Affiche lheure de début du match
              <Text>{item.hourFinish}</Text>  // Affiche lheure de fin du match
              <Text>{item.scoreGame}</Text>  // Affiche le score du match
+             <Text>{item.statut}</Text>  // Affiche le score du match
           </View>
         )}
       />
