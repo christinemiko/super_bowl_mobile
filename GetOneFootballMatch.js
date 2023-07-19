@@ -14,7 +14,7 @@ const GetOneFootballMatch = () => {
     const fetchFootballMatch = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
 
-      const response = await fetch('http://127.0.0.1:8000/api/getfootballmatchesuser', {
+      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/getfootballmatchesuser', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const GetOneFootballMatch = () => {
     const fetchUserSportbets = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
 
-      const response = await fetch('http://127.0.0.1:8000/api/usersportbets', {
+      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/usersportbets', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

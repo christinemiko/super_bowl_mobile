@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import styles from './styles';
+
 
 
 const GetAllFootballMatches = () => {
@@ -11,7 +13,7 @@ const GetAllFootballMatches = () => {
     const fetchMatches = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
 
-      const response = await fetch('http://127.0.0.1:8000/api/getfootballmatchesuser', {
+      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/getfootballmatchesuser', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwt}`,
@@ -31,19 +33,49 @@ const GetAllFootballMatches = () => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
+
+        <Image source={require('./assets/logo4.png')} style={styles.logo} />
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>LES MATCHS / PARIS </Text>
+       </View>
+
       <FlatList
-        data={matches}
-        keyExtractor={item => item.id.toString()}  // Assure que chaque match est retouvé avec la propriété 'id' unique
-        renderItem={({ item }) => (
+         data={matches}
+         keyExtractor={item => item.id ? item.id.toString() : 'undefined'} 
+         renderItem={({ item }) => (
+          
           <View>
-             <Text>{item.team1} vs {item.team2}</Text>  // Affiche les noms des deux équipes
-             <Text>{item.date}</Text>  // Affiche la date du match
-             <Text>{item.hourStart}</Text>  // Affiche lheure de début du match
-             <Text>{item.hourFinish}</Text>  // Affiche lheure de fin du match
-             <Text>{item.scoreGame}</Text>  // Affiche le score du match
-             <Text>{item.statut}</Text>  // Affiche le score du match
+                <Image source={require('./assets/NLF.png')} style={styles.nlfLogo} />
+                 <View style={styles.titleContainer2}>
+                 <Text style={styles.title}>LE MATCH</Text>
+                </View>
+          <Text style={styles.label}>Les équipes : </Text>
+          <Text style={styles.text}>{item.team1 && item.team2 ? `${item.team1.teamName} vs ${item.team2.teamName}` : 'undefined'}</Text>
+
+          <Text style={styles.label}>Date : </Text>
+          <Text style={styles.text}> {item.matchDate ? new Date(item.matchDate).toLocaleDateString('fr-FR', {
+                   day: '2-digit', 
+                   month: '2-digit', 
+                   year: 'numeric' 
+                  }) : 'undefined'}</Text>
+
+          <Text style={styles.label}>Heure de début : </Text>
+          <Text style={styles.text}>{item.hourStart ? `${new Date(item.hourStart).getHours()}:${new Date(item.hourStart).getMinutes()}` : 'undefined'}</Text>
+
+          <Text style={styles.label}>Heure de fin : </Text>
+          <Text style={styles.text}>{item.hourFinish ? `${new Date(item.hourFinish).getHours()}:${new Date(item.hourFinish).getMinutes()}` : 'undefined'}</Text>
+
+          <Text style={styles.label}>Score du Match : </Text>
+          <Text style={styles.text}>{item.scoreGame ? item.scoreGame.toString() : 'undefined'}</Text>
+
+          <Text style={styles.label}>Statut du match : </Text>
+          <Text style={styles.text}>{item.statut ? item.statut.toString() : 'undefined'}</Text>
+
+          <Button title="Détails" color="orange" onPress={() => console.log('Button pressed')} />
           </View>
+
         )}
       />
     </View>

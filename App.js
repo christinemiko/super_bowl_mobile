@@ -35,9 +35,9 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="MainScreen" component={GetAllFootballMatches} />
-        <Stack.Screen name="OneFootballMatch" component={GetOneFootballMatch} />
+        <Stack.Screen name="Connexion" component={LoginScreen} />
+        <Stack.Screen name="Les Matchs / Paris" component={GetAllFootballMatches} />
+        <Stack.Screen name="Détails du Match" component={GetOneFootballMatch} />
 
       </Stack.Navigator>
     </NavigationContainer>

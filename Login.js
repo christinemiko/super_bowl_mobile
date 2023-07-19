@@ -2,78 +2,43 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles'; // Importez les styles depuis styles.js
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontFamily: 'OpenSans-Bold',
-    color: 'white',
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-  text: {
-    fontFamily: 'OpenSans-Regular',
-    color: 'white',
-    fontSize: 20,
-    textAlign:'left',
-  },
-  textInput: {
-    fontFamily: 'OpenSans-Regular',
-    color: 'black',
-    fontSize: 20,
-    backgroundColor: 'white', //  pour définir le fond blanc
-    borderRadius: 8, // pour ajouter des coins arrondis
-    paddingHorizontal: 10, // pour ajouter un espacement horizontal
-    marginBottom: 10, //  pour ajouter un espacement en bas
-    width: 300, // Définir la largeur souhaitée
-    height: 40, // Définir la hauteur souhaitée
-  },
-  button: {
-    width: 200, // Définir la largeur souhaitée
-    height: 50, // Définir la hauteur souhaitée
-    borderRadius: 10, // Définir le rayon des coins pour obtenir des bords arrondis
-  },
-  text2: {
-    fontFamily: 'OpenSans-Regular',
-    color: 'white',
-    fontSize: 10,
-    
-  },
-});
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  console.log('username:', email);
+  console.log('password:', password);
 
   // Obtenez la fonction de navigation
   const navigation = useNavigation();
+  
 
   const handleSubmit = async() => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login_check', {
+      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/login_check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username: email, password }),
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        console.log('Error data:', errorData); // Log the error response data
         throw new Error('Échec de la connexion');
       }
-
+  
       const data = await response.json();
-
+      console.log('Response data:', data); // Log the success response data
+  
         // Stocker le jeton JWT dans AsyncStorage
         await AsyncStorage.setItem('jwt', data.token);
 
       // Naviguer vers l'écran suivant
-      navigation.navigate('MainScreen');
+      navigation.navigate("Les Matchs / Paris");
     } catch (error) {
       console.error(error);
       Alert.alert('Erreur', 'Échec de la connexion');
