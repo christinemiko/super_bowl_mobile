@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import styles from './styles';
 
 const GetOneFootballMatch = () => {
+  const navigation = useNavigation();
   const [footballMatch, setFootballMatch] = useState(null);
   const [sportbet, setSportbet] = useState(null);
 
-  const navigation = useNavigation();
   const route = useRoute();
 
+  // récupère un footballmatch avec lid passer dans lurl.
   useEffect(() => {
     const fetchFootballMatch = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
+     
 
-      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/getfootballmatchesuser', {
+      const response = await fetch(`https://super-bowl.christine-chau-projets.com/api/footballmatch/${footballMatchId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -31,10 +34,11 @@ const GetOneFootballMatch = () => {
       setFootballMatch(data);
     };
 
+    // Récupère tous les paris pour un footballmatch avec son Id
     const fetchUserSportbets = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
 
-      const response = await fetch('https://super-bowl.christine-chau-projets.com/api/usersportbets', {
+      const response = await fetch(`https://super-bowl.christine-chau-projets.com/api/footballmatch/${footballMatchId}/getsportbets`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -51,29 +55,60 @@ const GetOneFootballMatch = () => {
       setSportbet(data);
     };
 
+    const footballMatchId = route.params.footballMatchId; // Déplacer la déclaration de footballMatchId ici
     fetchFootballMatch();
     fetchUserSportbets();
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
+       <Image source={require('./assets/logo4.png')} style={styles.logo} />
       {footballMatch && (
-        <View>
-          <Text>Détails du Match:</Text>
-          <Text>statut: {footballMatch.statut}</Text>
-          <Text>{footballMatch.team1} vs {footballMatch.team2}</Text>
-          <Text>Date: {footballMatch.matchDate}</Text>
-          <Text>Heure de début: {footballMatch.hourStart}</Text>
-          <Text>Heure de fin: {footballMatch.hourFinish}</Text>
+           <View>
+          <View style={styles.titleContainer}>       
+          <Text style={styles.title}>Détails du Match:</Text>
+          </View>
+
+          <Text style={styles.label}>Statut du match : </Text>
+          <Text style={styles.text}>{footballMatch.statut}</Text>
+
+          <Text style={styles.label}>Les équipes : </Text>
+          <Text style={styles.text}>{footballMatch.team1.teamName} vs {footballMatch.team2.teamName}</Text>
+          
+          <Text style={styles.label}>Date : </Text>
+          <Text style={styles.text}>{footballMatch.matchDate ? new Date(footballMatch.matchDate).toLocaleDateString('fr-FR', {
+                   day: '2-digit', 
+                   month: '2-digit', 
+                   year: 'numeric' 
+                  }) : 'undefined'}</Text>
+          
+          <Text style={styles.label}>Heure de début : </Text>
+          <Text style={styles.text}>{footballMatch.hourStart ? `${new Date(footballMatch.hourStart).getHours()}:${new Date(footballMatch.hourStart).getMinutes()}` : 'undefined'}</Text>
+          
+          <Text style={styles.label}>Heure de fin : </Text>
+          <Text style={styles.text}>{footballMatch.hourFinish ? `${new Date(footballMatch.hourFinish).getHours()}:${new Date(footballMatch.hourFinish).getMinutes()}` : 'undefined'}</Text>
+        
         </View>
       )}
 
       {sportbet && (
         <View>
-          <Text>Votre Pari:</Text>
-          <Text>Mise: {sportbet.wagerMade}</Text>
-          <Text>Gains: {sportbet.moneyGain}</Text>
-          <Text>Pertes: {sportbet.moneyLose}</Text>
+
+           <View style={styles.titleContainer}>       
+          <Text style={styles.title}>Votre Pari:</Text>
+          </View>
+        
+           
+          <Text style={styles.label}>Mise:</Text>
+          <Text style={styles.text}>{sportbet.wagerMade}</Text>
+
+             
+          <Text style={styles.label}>Gains:</Text>
+          <Text style={styles.text}>{sportbet.moneyGain}</Text>
+
+             
+          <Text style={styles.label}>Pertes:</Text>
+          <Text style={styles.text}>{sportbet.moneyLose}</Text>
         </View>
       )}
     </View>

@@ -7,6 +7,9 @@ import styles from './styles';
 
 
 const GetAllFootballMatches = () => {
+  
+  // Obtenez la fonction de navigation
+  const navigation = useNavigation();
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
@@ -73,7 +76,12 @@ const GetAllFootballMatches = () => {
           <Text style={styles.label}>Statut du match : </Text>
           <Text style={styles.text}>{item.statut ? item.statut.toString() : 'undefined'}</Text>
 
-          <Button title="Détails" color="orange" onPress={() => console.log('Button pressed')} />
+          <Button 
+          title="Détails" 
+          color="orange" 
+          onPress={() => navigation.navigate('Détails du Match', { footballMatchId: item.id })}
+          />
+          
           </View>
 
         )}
