@@ -64,6 +64,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
   
   },
+  label2: {
+    fontFamily: 'OpenSans-Regular',
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 10, 
+    marginBottom: 20, 
+    fontSize: 20,
+  
+  },
   nlfLogo: {
     width: 200,
     height: 200,

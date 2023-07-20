@@ -35,10 +35,10 @@ const GetOneFootballMatch = () => {
     };
 
     // Récupère tous les paris pour un footballmatch avec son Id
-    const fetchUserSportbets = async () => {
+    const fetchSportbet = async () => {
       const jwt = await AsyncStorage.getItem('jwt');
 
-      const response = await fetch(`https://super-bowl.christine-chau-projets.com/api/footballmatch/${footballMatchId}/getsportbets`, {
+      const response = await fetch(`https://super-bowl.christine-chau-projets.com/api/footballmatch/${footballMatchId}/getsportbet`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -51,13 +51,14 @@ const GetOneFootballMatch = () => {
       }
 
       const data = await response.json();
-
+      console.log(data);
       setSportbet(data);
+
     };
 
     const footballMatchId = route.params.footballMatchId; // Déplacer la déclaration de footballMatchId ici
     fetchFootballMatch();
-    fetchUserSportbets();
+    fetchSportbet();
   }, []);
 
   return (
@@ -87,28 +88,25 @@ const GetOneFootballMatch = () => {
           
           <Text style={styles.label}>Heure de fin : </Text>
           <Text style={styles.text}>{footballMatch.hourFinish ? `${new Date(footballMatch.hourFinish).getHours()}:${new Date(footballMatch.hourFinish).getMinutes()}` : 'undefined'}</Text>
-        
+          <Text style={styles.label2}>Votre Pari: </Text>
         </View>
       )}
 
       {sportbet && (
         <View>
+          
+          <Text style={styles.text}>Mise:{sportbet.wagerMade !== null ? sportbet.wagerMade.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>Gains:{sportbet.moneyGain !== null ? sportbet.moneyGain.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>Pertes:{sportbet.moneyLose !== null ? sportbet.moneyLose.toString() : 'NULL'}</Text>
 
            <View style={styles.titleContainer}>       
           <Text style={styles.title}>Votre Pari:</Text>
           </View>
-        
-           
-          <Text style={styles.label}>Mise:</Text>
-          <Text style={styles.text}>{sportbet.wagerMade}</Text>
 
-             
-          <Text style={styles.label}>Gains:</Text>
-          <Text style={styles.text}>{sportbet.moneyGain}</Text>
+          <Text style={styles.text}>{sportbet.wagerMade !== null ? sportbet.wagerMade.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>{sportbet.moneyGain !== null ? sportbet.moneyGain.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>{sportbet.moneyLose !== null ? sportbet.moneyLose.toString() : 'NULL'}</Text>
 
-             
-          <Text style={styles.label}>Pertes:</Text>
-          <Text style={styles.text}>{sportbet.moneyLose}</Text>
         </View>
       )}
     </View>
