@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   titleContainer: {
     backgroundColor: 'red',
@@ -81,8 +81,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginHorizontal: 'auto',
   },
-  
-  
+  logoutContainer: {
+    alignSelf: 'flex-end',
+    marginRight: 20,
+  },
+  logoutButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+   
 });
 
 export default styles;

@@ -4,8 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
 
-
-
 const GetAllFootballMatches = () => {
   
   // Obtenez la fonction de navigation
@@ -28,6 +26,7 @@ const GetAllFootballMatches = () => {
       }
 
       const data = await response.json();
+      console.log(data);
 
       setMatches(data);
     };
@@ -35,9 +34,21 @@ const GetAllFootballMatches = () => {
     fetchMatches();
   }, []);
 
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('jwt');
+    navigation.navigate('Connexion');
+  };
+
   return (
     <View style={styles.container}>
-
+         <View style={styles.logoutContainer}>
+     <Button 
+        title="Déconnexion" 
+        onPress={handleLogout}
+        color="black" 
+        style={styles.logoutButton}
+      />
+      </View>
         <Image source={require('./assets/logo4.png')} style={styles.logo} />
 
         <View style={styles.titleContainer}>

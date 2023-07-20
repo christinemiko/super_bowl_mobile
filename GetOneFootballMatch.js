@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
@@ -61,8 +61,21 @@ const GetOneFootballMatch = () => {
     fetchSportbet();
   }, []);
 
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('jwt');
+    navigation.navigate('Connexion');
+  };
+
   return (
     <View style={styles.container}>
+          <View style={styles.logoutContainer}>
+             <Button 
+             title="Déconnexion" 
+             onPress={handleLogout}
+             color="black" 
+             style={styles.logoutButton}
+             />
+         </View>
        <Image source={require('./assets/logo4.png')} style={styles.logo} />
       {footballMatch && (
            <View>
