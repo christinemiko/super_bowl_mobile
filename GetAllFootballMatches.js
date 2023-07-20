@@ -41,14 +41,16 @@ const GetAllFootballMatches = () => {
 
   return (
     <View style={styles.container}>
+  
          <View style={styles.logoutContainer}>
-     <Button 
+         <Button 
         title="Déconnexion" 
         onPress={handleLogout}
         color="black" 
         style={styles.logoutButton}
-      />
-      </View>
+        />
+        </View>
+
         <Image source={require('./assets/logo4.png')} style={styles.logo} />
 
         <View style={styles.titleContainer}>
@@ -97,6 +99,7 @@ const GetAllFootballMatches = () => {
 
         )}
       />
+      
     </View>
   );
 };

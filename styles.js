@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     alignSelf: 'stretch',
   },
+  titleContainer3: {
+    backgroundColor: 'grey',
+    padding: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+  },
   title: {
     fontFamily: 'OpenSans-Bold',
     color: 'white',
@@ -89,6 +95,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo2: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
    
 });

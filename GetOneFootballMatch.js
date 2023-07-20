@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Button } from 'react-native';
+import { View, Text, Image, ScrollView, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
@@ -68,20 +68,25 @@ const GetOneFootballMatch = () => {
 
   return (
     <View style={styles.container}>
-          <View style={styles.logoutContainer}>
-             <Button 
-             title="Déconnexion" 
-             onPress={handleLogout}
-             color="black" 
-             style={styles.logoutButton}
-             />
-         </View>
-       <Image source={require('./assets/logo4.png')} style={styles.logo} />
+     <ScrollView>
+      <View style={styles.logoutContainer}>
+          <Button 
+           title="Déconnexion" 
+           onPress={handleLogout}
+           color="black" 
+           style={styles.logoutButton}
+          />
+      </View>
+
+      <View style={styles.logoContainer}>
+       <Image source={require('./assets/logo4.png')} style={styles.logo2} />
+       </View>
+
       {footballMatch && (
-           <View>
-          <View style={styles.titleContainer}>       
-          <Text style={styles.title}>Détails du Match:</Text>
-          </View>
+        <View>
+               <View style={styles.titleContainer}>       
+                 <Text style={styles.title}>Détails du Match:</Text>
+               </View>
 
           <Text style={styles.label}>Statut du match : </Text>
           <Text style={styles.text}>{footballMatch.statut}</Text>
@@ -101,27 +106,21 @@ const GetOneFootballMatch = () => {
           
           <Text style={styles.label}>Heure de fin : </Text>
           <Text style={styles.text}>{footballMatch.hourFinish ? `${new Date(footballMatch.hourFinish).getHours()}:${new Date(footballMatch.hourFinish).getMinutes()}` : 'undefined'}</Text>
-          <Text style={styles.label2}>Votre Pari: </Text>
         </View>
-      )}
-
+       )}
       {sportbet && (
         <View>
-          
-          <Text style={styles.text}>Mise:{sportbet.wagerMade !== null ? sportbet.wagerMade.toString() : 'NULL'}</Text>
-          <Text style={styles.text}>Gains:{sportbet.moneyGain !== null ? sportbet.moneyGain.toString() : 'NULL'}</Text>
-          <Text style={styles.text}>Pertes:{sportbet.moneyLose !== null ? sportbet.moneyLose.toString() : 'NULL'}</Text>
-
-           <View style={styles.titleContainer}>       
-          <Text style={styles.title}>Votre Pari:</Text>
+           <View style={styles.titleContainer3}>       
+              <Text style={styles.title}>Votre Pari:</Text>
           </View>
 
-          <Text style={styles.text}>{sportbet.wagerMade !== null ? sportbet.wagerMade.toString() : 'NULL'}</Text>
-          <Text style={styles.text}>{sportbet.moneyGain !== null ? sportbet.moneyGain.toString() : 'NULL'}</Text>
-          <Text style={styles.text}>{sportbet.moneyLose !== null ? sportbet.moneyLose.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>Mise: {sportbet.wagerMade !== null ? sportbet.wagerMade.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>Gains: {sportbet.moneyGain !== null ? sportbet.moneyGain.toString() : 'NULL'}</Text>
+          <Text style={styles.text}>Pertes: {sportbet.moneyLose !== null ? sportbet.moneyLose.toString() : 'NULL'}</Text>
 
         </View>
       )}
+      </ScrollView>
     </View>
   );
 };
