@@ -84,7 +84,7 @@ const GetAllFootballMatches = () => {
           <Text style={styles.text}>{item.hourFinish ? `${new Date(item.hourFinish).getHours()}:${new Date(item.hourFinish).getMinutes()}` : 'undefined'}</Text>
 
           <Text style={styles.label}>Score du Match : </Text>
-          <Text style={styles.text}>{item.scoreGame ? item.scoreGame.toString() : 'undefined'}</Text>
+          <Text style={styles.text}>{item.scoreTeam1 !== null && item.scoreTeam2 !== null ? `${item.scoreTeam1} - ${item.scoreTeam2}`: 'Score indisponible'}</Text>
 
           <Text style={styles.label}>Statut du match : </Text>
           <Text style={styles.text}>{item.statut ? item.statut.toString() : 'undefined'}</Text>
